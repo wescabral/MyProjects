@@ -1,0 +1,19 @@
+### Introduction
+
+
+
+
+### Dataset
+
+
+
+### Exploratory Data Analysis (EDA)
+## Related variables
+
+
+
+## Creating new variables
+
+
+
+### Principal Component Analysis (PCA)
