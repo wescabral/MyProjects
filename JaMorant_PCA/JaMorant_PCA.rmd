@@ -6,7 +6,11 @@ output: html_notebook
 
 ### Introduction
 
-
+```{r setup}
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = FALSE)
+```
 
 
 I am not a big NBA fan, to be honest I have started to follow it during the last season.
@@ -20,19 +24,38 @@ As I have already said, I am not a real NBA fan so I only watched Grizzlies game
 library(tidyverse)
 library(kableExtra)
 
-nbaData = read_csv2("2021-2022 NBA Player Stats - Regular.csv") %>% filter(Pos == "PG")
+#Reading data and filtering to keep only PGs
+
+nbaData = read_delim("2021-2022 NBA Player Stats - Regular.csv", delim=";", show_col_types = FALSE) %>% 
+            filter(Pos == "PG")
 ```
-The dataset used in this analysis is provided by "VIVO VINCO" on [Kaggle](https://www.kaggle.com/datasets/vivovinco/nba-player-stats) and brings a lot of attacking and defending stats of each player so as them age and the team he played for (if someone wear different jerseys along the season, there is an observation for each franchise and a total one).
+
+The dataset used in this analysis is provided by "VIVO VINCO" on [Kaggle](https://www.kaggle.com/datasets/vivovinco/nba-player-stats). It brings a lot of attacking and defending stats of each player so as them age and the team he played for (if someone wear different jerseys along the season, there is an observation for each franchise and a total one as you can see below).
 
 ```{r}
-kable(head(nbaData),caption = "2021-2022 NBA player stats dataset", label = "cor") %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 10) %>% 
+kable(head(nbaData),caption = "First 5 lines of 2021-2022 NBA player stats dataset") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12) %>% 
   scroll_box(width = "900px")
 ```
 
+```{r}
+#selecting total stats from players who played for more than one team
+tradedPlayers = nbaData %>%
+                  group_by(Player) %>%
+                  filter(n() > 1 & Tm == "TOT")
+
+#Recombinig data so now it has only untraded players and total stats from those who were traded
+nbaData = bind_rows(filter(group_by(nbaData, Player), n() == 1),
+                    tradedPlayers)
+                   
+```
 
 
 ### Exploratory Data Analysis (EDA)
+##Ja Morant
+First of all, I want to see where Ja is located between other PGs in some stats and combination of them
+
+
 ## Related variables
 
 
