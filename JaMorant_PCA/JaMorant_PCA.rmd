@@ -1,10 +1,34 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
 ### Introduction
-I am not a big NBA fan, to be honest I have started to watch it during the last season.
-Luckily, one of the first matches I watched was a Grizzlies game and I had no option but keep watching Ja and his gang.
-As I have already said, I am not a real NBA fan so I only watched Grizzlies games. For that reason, I am going to analyze him and other point guards in order to know if there is someone like him someway.
+
+
+
+
+I am not a big NBA fan, to be honest I have started to follow it during the last season.
+Luckily, one of the first matches I watched was a Grizzlies game and I had no option but keep appreciating Ja and his gang's show.
+As I have already said, I am not a real NBA fan so I only watched Grizzlies games. For that reason, I am going to analyze him and other point guards in order to know if there is someone like him stats-wise.
 
 
 ### Dataset
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+
+nbaData = read_csv2("2021-2022 NBA Player Stats - Regular.csv") %>% filter(Pos == "PG")
+```
+The dataset used in this analysis is provided by "VIVO VINCO" on [Kaggle](https://www.kaggle.com/datasets/vivovinco/nba-player-stats) and brings a lot of attacking and defending stats of each player so as them age and the team he played for (if someone wear different jerseys along the season, there is an observation for each franchise and a total one).
+
+```{r}
+kable(head(nbaData),caption = "2021-2022 NBA player stats dataset", label = "cor") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 10) %>% 
+  scroll_box(width = "900px")
+```
 
 
 
