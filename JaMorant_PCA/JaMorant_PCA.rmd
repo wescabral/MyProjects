@@ -27,7 +27,7 @@ library(kableExtra)
 #Reading data and filtering to keep only PGs
 
 nbaData = read_delim("2021-2022 NBA Player Stats - Regular.csv", delim=";", show_col_types = FALSE) %>% 
-            filter(Pos == "PG")
+            filter(Pos == "PG" & G >= 20)
 ```
 
 The dataset used in this analysis is provided by "VIVO VINCO" on [Kaggle](https://www.kaggle.com/datasets/vivovinco/nba-player-stats). It brings a lot of attacking and defending stats of each player so as them age and the team he played for (if someone wear different jerseys along the season, there is an observation for each franchise and a total one as you can see below).
@@ -52,8 +52,43 @@ nbaData = bind_rows(filter(group_by(nbaData, Player), n() == 1),
 
 
 ### Exploratory Data Analysis (EDA)
-##Ja Morant
-First of all, I want to see where Ja is located between other PGs in some stats and combination of them
+
+
+
+## Ja Morant
+
+
+```{r}
+jaMorant = subset(nbaData, Player == "Ja Morant")
+```
+
+
+First of all, I want to see where Ja is located between other PGs in some stats and combination of them. To be clear, I will be analysing these features:
+- 2-point shooting
+- 3-point shooting
+- Free throw shooting
+- Assists to turnovers
+- Guarding (blocks and steals to fouls)
+
+
+# 2-point shooting
+
+```{r}
+nbaData %>%
+  ggplot(aes(x=`2P`, y=`2P%`)) + geom_point(alpha=0.40) +
+  geom_point(data=jaMorant, colour = "deepskyblue") +
+  geom_text(data = jaMorant, colour = "deepskyblue3", label = "Ja Morant", vjust=-1, hjust=1) +
+  theme_bw()
+```
+# 3-point shooting
+
+```{r}
+nbaData %>%
+  ggplot(aes(x=`2P`, y=`2P%`)) + geom_point(alpha=0.40) +
+  geom_point(data=jaMorant, colour = "deepskyblue") +
+  geom_text(data = jaMorant, colour = "deepskyblue3", label = "Ja Morant", vjust=-1, hjust=1) +
+  theme_bw()
+```
 
 
 ## Related variables
